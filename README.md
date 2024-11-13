@@ -72,7 +72,7 @@ Now open your browser and navigate to `http://localhost:3000` to see the Pomodor
    - A progress bar will show the remaining time for the current session. It fills up as you progress through the session and resets when switching between work and break sessions.
 
 5. **Statistics**:
-   - View the total work time, total break time, and the number of Pomodoro sessions completed so far.
+   - View the total work time, total break time, and the number of Pomodoro sessions completed.
 
 ---
 
@@ -80,18 +80,18 @@ Now open your browser and navigate to `http://localhost:3000` to see the Pomodor
 
 ### `PomodoroTimer` Component
 
-This is the main component for the Pomodoro Timer. It handles:
+This is the main component of the Pomodoro Timer. It handles:
 
 - State management for the timer, including work duration, break duration, remaining time, and session progress.
 - Side-effects for saving and loading settings from `localStorage`.
-- Timer logic for countdown, session transitions, and statistics tracking.
+- Timer logic for the countdown, session transitions, and statistics tracking.
 - Timer control functions: Start, Pause, and Reset.
 
 ---
 
 ## Handling Hydration Mismatch
 
-This application is built with **React** and **Next.js**, which can cause **hydration mismatches** when certain client-side logic runs before the component is mounted. To address this issue, we use the `hasMounted` state, ensuring that client-only logic (like accessing `localStorage`) is only executed after the component has mounted.
+This application is built with **React** and **Next.js**, which can cause **hydration mismatches** when certain client-side logic runs before the component is mounted. We use the `hasMounted` state to address this issue, ensuring that client-only logic (like accessing `localStorage`) is only executed after the component has mounted.
 
 ---
 
@@ -112,7 +112,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For any questions or feedback, feel free to contact me at **your-email@example.com** or visit my [LinkedIn Profile](https://www.linkedin.com/in/your-profile).
+For any questions or feedback, feel free to contact me at **iknowaditya22@gmail.com** or visit my [LinkedIn Profile](https://www.linkedin.com/in/hanu-singh-50710a1a3/).
 
 ---
 
