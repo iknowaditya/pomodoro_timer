@@ -1,11 +1,13 @@
-"use client"
+"use client";
 
 import * as React from "react";
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
+// Constants for the toast actions
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
 
+// Type definitions for ToasterToast and Actions
 type ToasterToast = ToastProps & {
   id: string;
   title?: React.ReactNode;
@@ -18,32 +20,25 @@ const actionTypes = {
   UPDATE_TOAST: "UPDATE_TOAST",
   DISMISS_TOAST: "DISMISS_TOAST",
   REMOVE_TOAST: "REMOVE_TOAST",
-} as const;
+} as const; // Make this constant as a literal type for actions
 
-let count = 0;
-
-function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER;
-  return count.toString();
-}
-
-type ActionType = typeof actionTypes;
+type ActionType = keyof typeof actionTypes; // Extracts the keys of actionTypes as ActionType
 
 type Action =
   | {
-      type: ActionType["ADD_TOAST"];
+      type: "ADD_TOAST";
       toast: ToasterToast;
     }
   | {
-      type: ActionType["UPDATE_TOAST"];
+      type: "UPDATE_TOAST";
       toast: Partial<ToasterToast>;
     }
   | {
-      type: ActionType["DISMISS_TOAST"];
+      type: "DISMISS_TOAST";
       toastId?: ToasterToast["id"];
     }
   | {
-      type: ActionType["REMOVE_TOAST"];
+      type: "REMOVE_TOAST";
       toastId?: ToasterToast["id"];
     };
 
@@ -51,6 +46,7 @@ interface State {
   toasts: ToasterToast[];
 }
 
+// Toast timeout management for removal
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 const addToRemoveQueue = (toastId: string) => {
@@ -69,6 +65,7 @@ const addToRemoveQueue = (toastId: string) => {
   toastTimeouts.set(toastId, timeout);
 };
 
+// Reducer function to manage the state of toasts
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_TOAST":
@@ -119,11 +116,12 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         toasts: state.toasts.filter((t) => t.id !== action.toastId),
       };
+    default:
+      return state;
   }
 };
 
 const listeners: Array<(state: State) => void> = [];
-
 let memoryState: State = { toasts: [] };
 
 function dispatch(action: Action) {
@@ -192,3 +190,10 @@ function useToast() {
 }
 
 export { useToast, toast };
+
+// Helper function to generate unique IDs for toasts
+let count = 0;
+function genId() {
+  count = (count + 1) % Number.MAX_SAFE_INTEGER;
+  return count.toString();
+}
